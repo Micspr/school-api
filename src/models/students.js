@@ -23,7 +23,15 @@ function getAllInstructors(studentId){
   )
 }
 
+const getAll = () => db('students')
+
+const getOne = studentId => db('students').where({id: studentId}).first()
+
+const create = name => db('instructors').insert({name}).returning('*').then(([data]) => data)
+
 module.exports = {
+  create,
+  getAll,
   getOne,
   getAllInstructors
 }
