@@ -27,9 +27,22 @@ const getAll = () => db('students')
 
 const getOne = studentId => db('students').where({id: studentId}).first()
 
-const create = name => db('instructors').insert({name}).returning('*').then(([data]) => data)
+const create = (name, cohorts_id) => db('students').insert({name, cohorts_id}).returning('*').then(([data]) => data)
 
+const remove = studentId => {
+  return (
+    db('students')
+    .del()
+    .where({id: studentId})
+    .returning('*')
+    .then(([data]) => {
+      delete data.id
+      return data
+    })
+    )
+}
 module.exports = {
+  remove,
   create,
   getAll,
   getOne,

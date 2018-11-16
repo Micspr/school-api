@@ -38,10 +38,18 @@ const getOne = (req, res, next) => {
 const create = (req, res, next) => {
   if(!req.body.name) 
     return next({status: 400, message: 'Please include a name.'})
+  if(!req.body.cohorts_id)
+    return next({status: 400, message: 'Please include a Cohort ID.'})
 
-  model.create(req.body.name)
+  model.create(req.body.name, parseInt(req.body.cohorts_id))
   .then(data => res.status(201).send({data}))
   .catch(next)
+}
+
+const remove = (req, res, next) => {
+  model.remove(parseInt(req.params.studentId))
+  .then(data => res.status(200).send({data}))
+  .catch(next)  
 }
 //////////////////////////////////////////////////////////////////////////////
 // Quality of Life functions
@@ -56,6 +64,7 @@ function checkIfStudentExists(req, res, next){
 }
 
 module.exports = {
+  remove,
   create,
   getAll,
   getOne,

@@ -16,9 +16,9 @@ router.post('/', studentsController.create)
 //             studentsController.checkIfStudentExists,
 //             studentsController.update)
 
-// router.delete('/:studentId',
-//             studentsController.checkIfStudentExists,
-//             studentsController.remove)
+router.delete('/:studentId',
+            studentsController.checkIfStudentExists,
+            studentsController.remove)
 
 //////////////////////////////////////////////////////////////////////////////
 // Nested CRUD Methods
